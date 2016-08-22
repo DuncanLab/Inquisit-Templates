@@ -1,0 +1,224 @@
+﻿<item survey_incorrect_response_instructions>
+/1 = "images/21.jpeg"
+/2 = "images/3.jpeg"
+/3 = "images/4.jpeg"
+</item>
+
+<values>
+/image_counter = 0
+</values>
+
+<picture survey_correct_response_picture>
+/ items = item("images/22.jpeg")
+/ select = sequence
+/ size = (100%, 100%)
+/ position = (50%, 50%)
+</picture>
+
+<trial survey_correct_response_trial>
+/ stimulusframes = [1=survey_correct_response_picture]
+/ validresponse = (57)
+</trial>
+
+<radiobuttons radio1>
+/ caption="When asked to indicate your vividness of the association made between the word- pairs, this refers to how well you were able to relate the word pairs together to enhance you memory for them later."
+/ options=("True", "False")
+/ required=true
+</radiobuttons>
+
+<radiobuttons radio2>
+/ caption="When asked to indicate whether the scene image is old or new, what is this referring to?"
+/ options=("Whether the image looks like it had been taken recently (new) or from the past (old)", "Whether the scene was previously shown to you earlier in the study (old) or not (new)", "Whether you have visited somewhere that looks like the scene image (old) or not (new)")
+/ required=true
+</radiobuttons>
+
+<radiobuttons radio3>
+/ caption="What word list(s) will you be tested on?"
+/ options=("First word list shown", "Second word list shown", "Either")
+/ required=true
+</radiobuttons>
+
+<surveypage my_surveypage>
+/ caption = "Please complete this survey. You must answer all 3 questions correctly to continue with the experiment."
+/ questions = [1=radio1; 2=radio2; 3=radio3]
+/recorddata = true
+/ branch = [
+	if (radiobuttons.radio1.response != "True") trial.survey_incorrect_response_trial
+]
+/ branch = [
+	if (radiobuttons.radio2.response != "Whether the scene was previously shown to you earlier in the study (old) or not (new)") trial.survey_incorrect_response_trial
+]
+/ branch = [
+	if (radiobuttons.radio3.response != "Either") trial.survey_incorrect_response_trial
+]
+</surveypage>
+
+<surveypage incorrect_responses_surveypage>
+/ caption = "You have answered one or more of the questions incorrectly. Please try again."
+/ questions = [1=radio1; 2=radio2; 3=radio3]
+/recorddata = true
+/ ontrialbegin = [
+		values.image_counter = 0
+]
+/ branch = [
+	if (radiobuttons.radio1.response != "True") trial.survey_incorrect_response_trial
+]
+/ branch = [
+	if (radiobuttons.radio2.response != "Whether the scene was previously shown to you earlier in the study (old) or not (new)") trial.survey_incorrect_response_trial
+]
+/ branch = [
+	if (radiobuttons.radio3.response != "Either") trial.survey_incorrect_response_trial
+]
+</surveypage>
+
+<picture survey_incorrect_response_picture>
+/ items = item.survey_incorrect_response_instructions
+/ select = sequence
+/size = (100%, 100%)
+/position = (50%, 50%)
+</picture>
+
+<trial survey_incorrect_response_trial>
+/ stimulusframes = [1=survey_incorrect_response_picture]
+/ recorddata = false
+/ validresponse = (57)
+/ ontrialend = [
+	values.image_counter = values.image_counter + 1
+]
+/ branch = [
+	if (values.image_counter < 3) trial.survey_incorrect_response_trial
+]
+/ branch = [
+	if (values.image_counter >= 3) surveypage.incorrect_responses_surveypage
+]
+</trial>
+
+<textbox worker_id_textbox>
+/ caption="Please enter your Amazon Mechnaical Turk Worker ID"
+/ required=true
+/ position = (30%, 25%)
+</textbox>
+
+<surveypage worker_id_surveypage>
+/ questions = [1=worker_id_textbox]
+/recorddata = true
+</surveypage>
+
+
+<block survey>
+/ trials = [1=my_surveypage, survey_correct_response_trial]
+</block>
+
+<block worker_id_block>
+/ trials = [1=worker_id_surveypage]
+</block>
+
+
+--------------------------------
+     DEMOGRAPHICS SURVEY
+--------------------------------
+
+<textbox gender>
+/ caption="Gender:"
+/ required=true
+/ position = (10%, 15%)
+</textbox>
+
+<textbox age>
+/ caption="Age:"
+/ required=true
+/ position = (10%, 35%)
+</textbox>
+
+<textbox education>
+/ caption="Highest level of education obtained:"
+/ required=true
+/ position = (10%, 55%)
+</textbox>
+
+
+<surveypage demographics_surveypage>
+/ caption = "Please answer the following demographic questions"
+/ questions = [1=gender; 2=age; 3=education]
+/recorddata = true
+</surveypage>
+
+<radiobuttons left_right_handed>
+/ caption="left or right handed:"
+/ options=("left", "right")
+/ required=true
+/ position = (10%, 15%)
+</radiobuttons>
+
+
+<checkboxes race>
+/ caption = "Race/Ethnicity (check one or more):"
+/ options = ("White","Aboriginal/First Nations","Hispanic/Latino","African American","Middle Eastern","Indian/Pakistani/Sri Lankan", "Japanese/Korean/Chinese", "Filipino/Malaysian/Indonesian")
+/ other = raceother
+/ required = true
+/ optionvalues = ("0","1","2","3","4","5","6","7","8")
+/ position = (10%, 30%)
+</checkboxes>
+
+<textbox raceother>
+/ caption = "Some other race (please describe)"
+/ required = false
+</textbox>
+
+<radiobuttons english_language>
+/ caption="Is english your first language?"
+/ options=("Yes")
+/ required=true
+/ other = english_no
+/ position = (10%, 75%)
+</radiobuttons>
+
+<surveypage demographics_surveypage_2>
+/ caption = "Please answer the following demographic questions"
+/ questions = [1=left_right_handed;2=race;3=raceother;4=english_language]
+/recorddata = true
+</surveypage>
+
+<radiobuttons eyesight>
+/ caption="Eyesight: Do you have normal or corrected vision?"
+/ options=("Yes", "No")
+/ required=true
+/ position = (10%, 15%)
+</radiobuttons>
+
+<textbox english_no>
+/ caption = "No. When did you first learn English? :"
+/ required = false
+</textbox>
+
+<checkboxes medical_condition>
+/ caption = "Do you have or have you ever been diagnosed with any of the following medical conditions?"
+/ options = ("Psychiatric Disorder (e.g. Schizophrenia, Depression, Anxiety, OCD)","ADD, ADHD, or learning disability?","Neurological Disorder (e.g. epilepsy, brain damage)")
+/ other = medical_condition_other
+/ required = false
+/ optionvalues = ("0","1","2","3")
+/ position = (10%, 35%)
+</checkboxes>
+
+<textbox medical_condition_other>
+/ caption = "Ever lost consciousness for more than a few seconds? Explain:"
+/ required = false
+</textbox>
+
+<textbox medications>
+/ caption = "List any medications:"
+/ required = false
+/ position = (10%, 55%)
+</textbox>
+
+<surveypage demographics_surveypage_3>
+/ caption = "Please answer the following demographic questions"
+/ questions = [1=eyesight;2=medical_condition;3=medications]
+/recorddata = true
+</surveypage>
+
+
+<block demographics_block>
+/ trials = [1=demographics_surveypage;2=demographics_surveypage_2;3=demographics_surveypage_3]
+/ recorddata = true
+</block>

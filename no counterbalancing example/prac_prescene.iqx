@@ -1,0 +1,141 @@
+﻿<include>
+/ file = "SubjectFiles/Prac_PreScene.txt"
+</include>
+
+<values>
+/trial_start_time_prac_prescene = -1
+/trial_end_time_prac_prescene = -1
+</values>
+
+<picture background_img_prac_prescene>
+/ items = item.Prac_PreScene_PreScene
+/ select = sequence
+/ erase = false
+/ size = (50%%, 50%%)
+/ position = (50%%, 35%%)
+</picture>
+
+<text prac_prescene_sub>
+/ items = item.Prac_PreScene_Sub
+/ select = sequence
+/ color = white
+/ size = (0, 0)
+/ erase = false
+</text>
+
+<item instructions_prac_prescene>
+/1 = "images/1.jpeg"
+/2 = "images/2.jpeg"
+/3 = "images/3.jpeg"
+/4 = "images/4.jpeg"
+</item>
+
+<picture instruction_prac_prescene>
+/ items = item.instructions_prac_prescene
+/ select = sequence
+/size = (100%, 100%)
+/position = (50%, 50%)
+</picture>
+
+<trial instruction_trial_prac_prescene>
+/ stimulusframes = [1=instruction_prac_prescene]
+/ validresponse = (57)
+</trial>
+
+<block instruction_block_prac_prescene>
+/ trials = [1-4= sequence(instruction_trial_prac_prescene)]
+/ recorddata = false
+</block>
+
+<shape white_background_prac_prescene>
+/position = (50%, 35%)
+/ size = (5000, 5000)
+/ shape = rectangle
+/ color = white
+</shape>
+
+<picture keyboard_empty_prac_prescene>
+/items = item("images/keyboard_empty.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<picture keyboard_a_prac_prescene>
+/items = item("images/keyboard_a.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<picture keyboard_s_prac_prescene>
+/items = item("images/keyboard_s.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<text indoor_or_outdoor_prac_prescene>
+/ items = item("indoor or outdoor")
+/ fontstyle = ("Arial", 5.00%,  false, false, false, false, 5, 0)
+/position = (50%, 85%)
+/ erase = False
+/ color = (black)
+</text>
+
+<trial prac_prescene>
+/ stimulusframes = [1=prac_prescene_sub, keyboard_empty_prac_prescene, indoor_or_outdoor_prac_prescene, background_img_prac_prescene]
+/ validresponse = (30, 31)
+/ timeout = 2000
+/ branch = [
+	if (trial.prac_prescene.response == 30) trial.answered_a_prac_prescene
+]
+/ branch = [
+	if (trial.prac_prescene.response == 31) trial.answered_s_prac_prescene
+]
+/ ontrialbegin = [
+	values.trial_start_time_prac_prescene = script.elapsedtime
+]
+</trial>
+
+<trial answered_a_prac_prescene>
+/ stimulusframes = [1=keyboard_a_prac_prescene; 2=indoor_or_outdoor_prac_prescene]
+/ timeout = 2000 - (values.trial_end_time_prac_prescene - values.trial_start_time_prac_prescene)
+/ ontrialbegin = [
+	values.trial_end_time_prac_prescene = script.elapsedtime
+]
+/ recorddata = false
+</trial>
+
+<trial answered_s_prac_prescene>
+/ stimulusframes = [1=keyboard_s_prac_prescene; 2=indoor_or_outdoor_prac_prescene]
+/ timeout = 2000 - (values.trial_end_time_prac_prescene - values.trial_start_time_prac_prescene)
+/ ontrialbegin = [
+	values.trial_end_time_prac_prescene = script.elapsedtime
+]
+/ recorddata = false
+</trial>
+
+<text plus_text_prac_prescene>
+/ items = item("+")
+/ fontstyle = ("Arial", 20.00%,  false, false, false, false, 5, 0)
+/position = (50%, 50%)
+/ color = (black)
+</text>
+
+<trial fixation_trial_prac_prescene>
+/ stimulusframes = [1=white_background_prac_prescene; 1=plus_text_prac_prescene]
+/ timeout = 1000
+/ recorddata = false
+</trial>
+
+<trial fixation_trial_long_prac_prescene>
+/ stimulusframes = [1=white_background_prac_prescene; 1=plus_text_prac_prescene]
+/ timeout = 3000
+/ recorddata = false
+</trial>
+
+
+<block prac_prescene>
+/ trials = [1=fixation_trial_long_prac_prescene; 2-6=sequence(prac_prescene, fixation_trial_prac_prescene)]
+</block>
