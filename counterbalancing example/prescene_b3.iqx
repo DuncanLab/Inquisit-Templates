@@ -1,0 +1,119 @@
+﻿<values>
+/trial_start_time_prescene_b3 = -1
+/trial_end_time_prescene_b3 = -1
+</values>
+
+<item instructions_prescene_b3>
+/1 = "images/13.jpeg"
+/2 = "images/16.jpeg"
+</item>
+
+<picture instruction_prescene_b3>
+/ items = item.instructions_prescene_b3
+/ select = sequence
+/size = (100%, 100%)
+/position = (50%, 50%)
+</picture>
+
+<trial instruction_trial_prescene_b3>
+/ stimulusframes = [1=instruction_prescene_b3]
+/ validresponse = (57)
+</trial>
+
+<block instruction_block_prescene_b3>
+/ trials = [1-2=sequence(instruction_trial_prescene_b3)]
+/ recorddata = false
+</block>
+
+<shape white_background_prescene_b3>
+/position = (50%, 35%)
+/ size = (5000, 5000)
+/ shape = rectangle
+/ color = white
+</shape>
+
+<picture keyboard_empty_prescene_b3>
+/items = item("images/keyboard_empty.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<picture keyboard_a_prescene_b3>
+/items = item("images/keyboard_a.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<picture keyboard_s_prescene_b3>
+/items = item("images/keyboard_s.png")
+/select = 1
+/size = (15%, 15%)
+/position = (50%, 70%)
+</picture>
+
+<text indoor_or_outdoor_prescene_b3>
+/ items = item("indoor or outdoor")
+/ fontstyle = ("Arial", 5.00%,  false, false, false, false, 5, 0)
+/position = (50%, 85%)
+/ erase = False
+/ color = (black)
+</text>
+
+<trial prescene_b3>
+/ stimulusframes = [1=prescene_sub_b3; 2=keyboard_empty_prescene_b3, indoor_or_outdoor_prescene_b3, background_img_prescene_b3]
+/ validresponse = (30, 31)
+/ timeout = 2000
+/ branch = [
+	if (trial.prescene_b3.response == 30) trial.answered_a_prescene_b3
+]
+/ branch = [
+	if (trial.prescene_b3.response == 31) trial.answered_s_prescene_b3
+]
+/ ontrialbegin = [
+	values.trial_start_time_prescene_b3 = script.elapsedtime
+]
+</trial>
+
+<trial answered_a_prescene_b3>
+/ stimulusframes = [1=keyboard_a_prescene_b3; 2=indoor_or_outdoor_prescene_b3]
+/ timeout = 2000 - (values.trial_end_time_prescene_b3 - values.trial_start_time_prescene_b3)
+/ ontrialbegin = [
+	values.trial_end_time_prescene_b3 = script.elapsedtime
+]
+/ recorddata = false
+</trial>
+
+<trial answered_s_prescene_b3>
+/ stimulusframes = [1=keyboard_s_prescene_b3; 2=indoor_or_outdoor_prescene_b3]
+/ timeout = 2000 - (values.trial_end_time_prescene_b3 - values.trial_start_time_prescene_b3)
+/ ontrialbegin = [
+	values.trial_end_time_prescene_b3 = script.elapsedtime
+]
+/ recorddata = false
+</trial>
+
+<text plus_text_prescene_b3>
+/ items = item("+")
+/ fontstyle = ("Arial", 20.00%,  false, false, false, false, 5, 0)
+/position = (50%, 50%)
+/ color = (black)
+</text>
+
+<trial fixation_trial_prescene_b3>
+/ stimulusframes = [1=white_background_prescene_b3; 1=plus_text_prescene_b3]
+/ timeout = 1000
+/ recorddata = false
+</trial>
+
+<trial fixation_trial_long_prescene_b3>
+/ stimulusframes = [1=white_background_prescene_b3; 1=plus_text_prescene_b3]
+/ timeout = 3000
+/ recorddata = false
+</trial>
+
+
+<block b3_prescene>
+/ trials = [1=fixation_trial_long_prescene_b3; 2-6=sequence(prescene_b3, fixation_trial_prescene_b3)]
+</block>

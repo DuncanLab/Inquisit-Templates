@@ -1,0 +1,20 @@
+<include>
+/ file = "../../prescene_b2.iqx"
+/ file = "../../SubjectFiles/Sub9_B2_PreScene.txt"
+</include>
+
+< picture background_img_prescene_b2>
+/ items = item.Sub9_B2_PreScene_PreScene
+/ select = sequence
+/ erase = false
+/ size = (50%%, 50%%)
+/ position = (50%%, 35%%)
+</picture>
+
+<text prescene_sub_b2>
+/ items = item.Sub9_B2_PreScene_Sub
+/ select = sequence
+/ color = white
+/ size = (0, 0)
+/ erase = false
+</text>

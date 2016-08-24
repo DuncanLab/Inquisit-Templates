@@ -1,0 +1,10 @@
+<include>
+/ file = "prescene/Sub1_B1_Prac.txt"
+/ file = "../survey.iqx"
+/ file = "prescene/Sub7_B1.txt"
+/ file = "prescene/Sub7_B2.txt"
+/ file = "prescene/Sub7_B3.txt"
+</include>
+
+<expt>
+/blocks=[1=instruction_block_prac_prescene_b1;2=b1_prac_prescene;3=survey;4=instruction_block_prescene_b1;5=b1_prescene;6=instruction_block_prescene_b2;7=b2_prescene;8=instruction_block_prescene_b3;9=b3_prescene;10=demographics_block;11=worker_id_block]</expt>
