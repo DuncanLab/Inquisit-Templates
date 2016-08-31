@@ -55,6 +55,13 @@ the "other" proprety provides a textbox when selected
 / required = false
 </textbox>
 
+<textbox worker_id>
+/ caption="Please enter your Amazon Mechnaical Turk Worker ID"
+/ required=true
+/ position = (10%, 80%)
+</textbox>
+
+
 
 group questions together on a survey page. Subject click a button to progress through pages
 <surveypage demo_survey1>
@@ -69,9 +76,11 @@ group questions together on a survey page. Subject click a button to progress th
 / caption = "Please answer the following demographic questions"
 / fontstyle = ("Verdana", -16, true, false, false, false, 5, 0)
 / showpagenumbers = false
-/ questions = [1=race;2=raceother;3=english_language]
+/ questions = [1=race;2=raceother;3=english_language; worker_id]
 /recorddata = true
 </surveypage>
+
+
 
 
 group pages together into a block

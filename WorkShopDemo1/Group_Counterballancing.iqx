@@ -1,11 +1,17 @@
-﻿<batch GroupA>
-/ subjects = (1 of 3)
+﻿<include>
+/ file = "MemTestB.iqx"
+/ file = "MemTestA.iqx"
+/ file = "DemographicQuestionaire.iqx"
+</include>
+
+<batch GroupA>
+/ subjects = (1 of 2)
 / file = "MemTestA.iqx"
 / file = "DemographicQuestionaire.iqx"
 </batch>
 
 <batch GroupB>
-/ subjects = (2 of 3)
+/ subjects = (2 of 2)
 / file = "MemTestB.iqx"
 / file = "DemographicQuestionaire.iqx"
 </batch>

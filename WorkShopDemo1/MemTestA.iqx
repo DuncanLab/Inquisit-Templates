@@ -100,17 +100,17 @@ Then combine into ecoding block
         Retrieval   Instructions
 -------------------------------------------
 <page ret_inst1>
-^^^^^^^                            Great Work!
+^^^^^^^Great Work!
 ^^In the second part, you will see many images of scenes. 
 ^^Some of these images will be 'old' -- an image that you saw in the first part of the experiment.
 ^^Some of these images will be 'new' -- an image that you haven't seen yet.
 </page>
 
 <page ret_inst2>
-^^^^^ Your job is to indicate whether each image is 'old' or 'new'.
-^^ Use the 'j' key to indicate old.
-^^ Use the 'k' key to indicate new.
-^^ You have 2 seconds to make each decision 
+^^^^^Your job is to indicate whether each image is 'old' or 'new'.
+^^Use the 'j' key to indicate old.
+^^Use the 'k' key to indicate new.
+^^You have 2 seconds to make each decision 
 </page>
 
 
@@ -139,10 +139,6 @@ images that will be presented
 / 5 = "Stimuli/1011.jpg"
 / 6 = "Stimuli/1012.jpg"
 </item>
-
-< values >
-/ temp="a"
-</values>
 
 < picture old_scene>
 / items = old_scene
@@ -206,7 +202,7 @@ Then combine into retrieval block
 </block>
 
 <data>
-/ columns=(group, subject, blockcode, trialcode, trialnum, latency, response, values.temp)
+/ columns=(group, subject, blockcode, trialcode, trialnum, latency, response)
 </data>
 
 <expt MemTestA>
