@@ -1,0 +1,89 @@
+﻿--------------------------------
+     DEMOGRAPHICS SURVEY
+--------------------------------
+
+This is an example of a simple survey and some "survey elements"
+
+textbox generates a box that subjects can type free form answers into
+<textbox age>
+/ caption="Age:"
+/ required=true
+/ position = (10%, 15%)
+</textbox>
+
+<textbox education>
+/ caption="Highest level of education obtained:"
+/ required=true
+/ position = (10%, 35%) 
+</textbox>
+
+radiobuttons let subjects select from mutually exclusive options
+<radiobuttons left_right_handed>
+/ caption="left or right handed:"
+/ options=("left", "right")
+/ required=true
+/ position = (10%, 55%)
+</radiobuttons>
+
+
+check boxes let participants select more than one option
+<checkboxes race>
+/ caption = "Race/Ethnicity (check one or more):"
+/ options = ("White","Aboriginal/First Nations","Hispanic/Latino","African American","Middle Eastern","Indian/Pakistani/Sri Lankan", "Japanese/Korean/Chinese", "Filipino/Malaysian/Indonesian")
+/ other = raceother
+/ required = true
+/ optionvalues = ("0","1","2","3","4","5","6","7","8")
+/ position = (10%, 15%)
+</checkboxes>
+
+<textbox raceother>
+/ caption = "Some other race (please describe)"
+/ required = false
+</textbox>
+
+the "other" proprety provides a textbox when selected
+<radiobuttons english_language>
+/ caption="Is english your first language?"
+/ options=("Yes")
+/ required=true
+/ other = english_no
+/ position = (10%, 55%)
+</radiobuttons>
+
+<textbox english_no>
+/ caption = "No. When did you first learn English? :"
+/ required = false
+</textbox>
+
+
+group questions together on a survey page. Subject click a button to progress through pages
+<surveypage demo_survey1>
+/ caption = "Please answer the following demographic questions"
+/ fontstyle = ("Verdana", -16, true, false, false, false, 5, 0)
+/ showpagenumbers = false
+/ questions = [1=age; 2=education; 3=left_right_handed]
+/recorddata = true
+</surveypage>
+
+<surveypage demo_survey2>
+/ caption = "Please answer the following demographic questions"
+/ fontstyle = ("Verdana", -16, true, false, false, false, 5, 0)
+/ showpagenumbers = false
+/ questions = [1=race;2=raceother;3=english_language]
+/recorddata = true
+</surveypage>
+
+
+group pages together into a block
+<block demo_block>
+/ trials = [1=demo_survey1;2=demo_survey2]
+/ recorddata = true
+</block>
+
+<expt>
+/ blocks = [1=demo_block]
+</expt>
+
+
+
+

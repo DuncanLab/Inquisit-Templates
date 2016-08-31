@@ -1,0 +1,11 @@
+﻿<batch GroupA>
+/ subjects = (1 of 3)
+/ file = "MemTestA.iqx"
+/ file = "DemographicQuestionaire.iqx"
+</batch>
+
+<batch GroupB>
+/ subjects = (2 of 3)
+/ file = "MemTestB.iqx"
+/ file = "DemographicQuestionaire.iqx"
+</batch>
