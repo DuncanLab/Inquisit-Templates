@@ -34,8 +34,12 @@ Participants study 6 scene images in a random order then they are tested on the 
 
 start with the elements that will go into a trial:
 
+< values>
+/stimulus= "."
+</values>
+
 images that will be presented
-< item scene>
+< item enc_scene>
 / 1 = "Stimuli/1001.jpg"
 / 2 = "Stimuli/1002.jpg"
 / 3 = "Stimuli/1003.jpg"
@@ -45,9 +49,10 @@ images that will be presented
 </item>
 
 < picture enc_scene>
-/ items = scene
+/ items = enc_scene
 / position = (50%,40%)
 / size = (500px,500px)
+/ select = noreplace 
 </picture>
 
 Response options
@@ -76,22 +81,21 @@ Fixation cross
 / position = (50%,50%)
 </text>
 
-
 Now build items up into trials
-<trial scene>
-/ beginresponseframe = 0
+<trial enc_scene>
 / stimulustimes = [0=fixation; 1000=enc_scene, indoors, outdoors; 3000=dummy]
 / validresponse = ("j","k")
 / trialduration = 3000
 / beginresponsetime = 1000
-/ responseinterrupt = trial
+/ responseinterrupt = frames
+/ ontrialbegin = [ values.stimulus= picture.enc_scene.currentitem]
 </trial>
 
 
-Then combine into ecoding block
+Then combine into ecoding block				
 <block Encoding>
 / preinstructions = (enc_inst1, enc_inst2)
-/ trials = [1-6=noreplace(scene)]
+/ trials = [1-6=noreplace(enc_scene)]
 </block>
 
 
@@ -115,22 +119,13 @@ Then combine into ecoding block
 
 
 -------------------------------------------
-        Encoding Block
+        Retrieval Block
 -------------------------------------------
 
 
 start with the elements that will go into a trial:
 
 images that will be presented
-< item old_scene>
-/ 1 = "Stimuli/1001.jpg"
-/ 2 = "Stimuli/1002.jpg"
-/ 3 = "Stimuli/1003.jpg"
-/ 4 = "Stimuli/1004.jpg"
-/ 5 = "Stimuli/1005.jpg"
-/ 6 = "Stimuli/1006.jpg"
-</item>
-
 < item new_scene>
 / 1 = "Stimuli/1007.jpg"
 / 2 = "Stimuli/1008.jpg"
@@ -141,15 +136,17 @@ images that will be presented
 </item>
 
 < picture old_scene>
-/ items = old_scene
+/ items = enc_scene
 / position = (50%,40%)
 / size = (500px,500px)
+/ select = noreplace 
 </picture>
 
 < picture new_scene>
 / items = new_scene
 / position = (50%,40%)
 / size = (500px,500px)
+/ select = noreplace 
 </picture>
 
 Response options
@@ -165,7 +162,7 @@ Response options
 / position = (75%,80%)
 </text>
 
-< text correct>
+< text correctFB>
 / items = ("Correct!")
 / fontstyle = ("Arial", 24pt, true)
 / position = (50%,50%)
@@ -173,25 +170,25 @@ Response options
 
 Now build items up into trials
 <trial old_scene>
-/ beginresponseframe = 0
-/ stimulustimes = [0=fixation; 1000=old_scene, old, new; 3000=dummy]
+/ stimulustimes = [0=fixation; 999=old_scene, old, new; 2999=dummy]
 / validresponse = ("j","k")
 / trialduration = 3000
-/ beginresponsetime = 1000
+/ beginresponsetime = 999
 / correctresponse = ("j")
 / responseinterrupt = trial
-/ correctmessage = true(correct,1000)
+/ correctmessage = true(correctFB,1000)
+/ ontrialbegin = [ values.stimulus= picture.old_scene.currentitem]
 </trial>
 
 <trial new_scene>
-/ beginresponseframe = 0
 / stimulustimes = [0=fixation; 1000=new_scene, old, new; 3000=dummy]
 / validresponse = ("j","k")
 / trialduration = 3000
 / beginresponsetime = 1000
 / correctresponse = ("k")
 / responseinterrupt = trial
-/ correctmessage = true(correct,1000)
+/ correctmessage = true(correctFB,1000)
+/ ontrialbegin = [ values.stimulus= picture.new_scene.currentitem]
 </trial>
 
 
@@ -202,7 +199,7 @@ Then combine into retrieval block
 </block>
 
 <data>
-/ columns=(group, subject, blockcode, trialcode, trialnum, latency, response)
+/ columns=(group, subject, blockcode, trialcode, trialnum, values.stimulus, response, correct, latency)
 </data>
 
 <expt MemTestA>

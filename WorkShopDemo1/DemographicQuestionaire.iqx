@@ -76,7 +76,7 @@ group questions together on a survey page. Subject click a button to progress th
 / caption = "Please answer the following demographic questions"
 / fontstyle = ("Verdana", -16, true, false, false, false, 5, 0)
 / showpagenumbers = false
-/ questions = [1=race;2=raceother;3=english_language; worker_id]
+/ questions = [1=race;2=raceother;3=english_language; 4=worker_id]
 /recorddata = true
 </surveypage>
 
