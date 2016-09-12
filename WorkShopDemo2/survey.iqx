@@ -136,6 +136,7 @@
 <textbox education>
 / caption="Highest level of education obtained:"
 / required=true
+/ mask = alphabetic
 / position = (10%, 55%)
 </textbox>
 
