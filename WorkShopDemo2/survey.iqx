@@ -124,11 +124,12 @@
 / position = (10%, 15%)
 </textbox>
 
-<textbox age>
+<dropdown age>
 / caption="Age:"
 / required=true
+/ options = ("0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 / position = (10%, 35%)
-</textbox>
+</dropdown>
 
 <textbox education>
 / caption="Highest level of education obtained:"
