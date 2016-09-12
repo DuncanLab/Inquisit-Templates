@@ -1,0 +1,14 @@
+<item Prac_PreScene_Sub>
+/1 = "1"
+/2 = "1"
+/3 = "1"
+/4 = "1"
+/5 = "1"
+</item>
+<item Prac_PreScene_PreScene>
+/1 = "images/1188.jpg"
+/2 = "images/1189.jpg"
+/3 = "images/1190.jpg"
+/4 = "images/1187.jpg"
+/5 = "images/1190.jpg"
+</item>
